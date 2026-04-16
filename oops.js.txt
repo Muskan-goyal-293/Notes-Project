@@ -1,0 +1,734 @@
+
+#  Day 56 – Object-Oriented Concepts in JavaScript
+
+JavaScript OOP (Object-Oriented Programming) helps you write cleaner, reusable, and structured code using **objects**, **classes**, **constructors**, **prototypes**, and **inheritance**.
+
+---
+
+## 🔹 1. Introduction to OOPS in JavaScript
+
+JavaScript supports OOP using:
+
+- Objects  
+- Classes  
+- Constructors  
+- Prototypes  
+- Inheritance  
+
+### ✔️ Simple Object Example
+
+```js
+const user = {
+  name: "Anubhav",
+  age: 24,
+  greet() {
+    console.log(`Hello, I am ${this.name}`);
+  },
+};
+
+user.greet();
+```
+
+---
+
+## 🔹 2. Understanding Classes and Objects
+
+- **class = blueprint**
+- **object = real instance created from the blueprint**
+
+### ✔️ Basic Example
+
+```js
+class Car {
+  constructor(brand, price) {
+    this.brand = brand;
+    this.price = price;
+  }
+
+  drive() {
+    console.log(`${this.brand} is driving...`);
+  }
+}
+
+const car1 = new Car("BMW", 5000000);
+car1.drive();
+```
+
+---
+
+## 🔹 3. Constructor & Prototype
+
+###  Constructor  
+A constructor is a special method inside a class that initializes object properties.
+
+```js
+class Student {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+}
+
+const s1 = new Student("Anubhav", 24);
+```
+
+---
+
+## 🔹 Prototype in JavaScript
+
+Every function in JavaScript has a **prototype**, which is used to **share methods** across all objects created from that function.
+
+### ✔️ Example Without Classes
+
+```js
+function Person(name) {
+  this.name = name;
+}
+
+// Adding method using prototype
+Person.prototype.sayHi = function () {
+  console.log(`Hi, I am ${this.name}`);
+};
+
+const p1 = new Person("Anubhav");
+p1.sayHi();
+```
+
+---
+Displaying Day56_OOPs in JS.md.
+
+#  Day 57 – Advance JS 2
+
+---
+
+## 1. `this` Keyword
+
+**Definition:**  
+`this` refers to the current object depending on *how* the function is called.
+
+---
+
+###  Example: Basic `this`
+
+```js
+const obj = {
+  name: "Anubhav",
+  show() {
+    console.log(this.name);
+  }
+};
+
+obj.show();
+```
+
+---
+
+## 2. `call()`
+
+Calls a function with a specific `this` value.
+
+```js
+function hello() {
+  console.log(`Hello ${this.name}`);
+}
+
+hello.call({ name: "Anubhav" });
+```
+
+---
+
+## 3. `apply()`
+
+Same as `call()`, but arguments are passed as an array.
+
+```js
+function sum(a, b) {
+  console.log(this.name, a + b);
+}
+
+sum.apply({ name: "Total:" }, [10, 20]);
+```
+
+---
+
+## 4. `bind()`
+
+Returns a new function with fixed `this`.
+
+```js
+function welcome() {
+  console.log("Welcome", this.user);
+}
+
+const newFn = welcome.bind({ user: "Anubhav" });
+newFn();
+```
+
+---
+
+#  Deep Notes on `this` Behavior
+
+---
+
+##  1. Global Scope → `this = window`
+
+```js
+console.log(this);  // window (in browser)
+```
+
+---
+
+##  2. Normal Function → `this = window` (non–strict mode)
+
+```js
+function show() {
+  console.log(this);  
+}
+show();  // window
+```
+
+---
+
+##  3. ES5 Function Inside Object → `this = object`
+
+```js
+const obj = {
+  name: "Anubhav",
+  getName: function () {
+    console.log(this);  // obj
+  }
+};
+
+obj.getName();
+```
+
+---
+
+##  4. ES6 Arrow Function Inside Object → `this = window`
+
+Arrow functions **do not bind** `this`.
+
+```js
+const obj = {
+  name: "Anubhav",
+  show: () => {
+    console.log(this);  // window
+  }
+};
+
+obj.show();
+```
+
+---
+
+##  5. ES5 Function inside ES5 Function → `this = window`
+
+Nested functions lose the outer `this`.
+
+```js
+const obj = {
+  name: "Anubhav",
+  outer() {
+    function inner() {
+      console.log(this);  // window
+    }
+    inner();
+  }
+};
+
+obj.outer();
+```
+
+---
+
+##  Solution → Use Arrow Function
+
+---
+
+##  6. Arrow Function inside ES5 Function → `this = object`
+
+Arrow function copies `this` from outer function.
+
+```js
+const obj = {
+  name: "Anubhav",
+  outer() {
+    const inner = () => {
+      console.log(this);  // obj
+    };
+    inner();
+  }
+};
+
+obj.outer();
+```
+
+#  Day 58 – Advance JS 3
+
+
+
+# 1. Class Expression
+
+JavaScript allows classes to be created as **expressions**, just like function expressions.
+
+### Anonymous Class Expression
+```js
+const Person = class {
+  constructor(name) {
+    this.name = name;
+  }
+};
+
+const p = new Person("Anubhav");
+console.log(p.name);
+```
+
+### Named Class Expression
+```js
+const Car = class CarClass {
+  constructor(model) {
+    this.model = model;
+  }
+};
+
+const c = new Car("BMW");
+console.log(c.model);
+```
+
+---
+
+## 2. Hoisting in Classes
+
+Classes are **not hoisted**. You cannot use a class before declaring it.
+
+```js
+const obj = new Student();  //  ReferenceError
+
+class Student {
+  constructor() {}
+}
+```
+
+---
+
+## 3. Inheritance (`extends`)
+
+```js
+class Animal {
+  speak() {
+    console.log("Animal speaks");
+  }
+}
+
+class Dog extends Animal {
+  bark() {
+    console.log("Dog barks");
+  }
+}
+
+const d = new Dog();
+d.speak();
+d.bark();
+```
+
+---
+
+## 4. Getter & Setter
+
+```js
+class User {
+  constructor(name) {
+    this._name = name;
+  }
+
+  get name() {
+    return this._name.toUpperCase();
+  }
+
+  set name(value) {
+    this._name = value;
+  }
+}
+
+const u = new User("anubhav");
+console.log(u.name);
+u.name = "Jha";
+console.log(u.name);
+```
+
+---
+
+## 5. Constructor Functions (Before ES6)
+
+```js
+function Animal() {
+  this.name = "harsh";
+}
+
+new Animal();
+```
+
+### Adding Methods Using Prototype
+```js
+function Animal(name) {
+  this.name = name;
+}
+
+Animal.prototype.speak = function () {
+  console.log(this.name + " makes a sound");
+};
+
+const cat = new Animal("Kitty");
+cat.speak();
+```
+Displaying Day 58 - Advance JS 3.md.
+
+## Day 59 notes 
+
+##  Synchronous JavaScript  
+JavaScript is **single-threaded**, meaning it executes code **line-by-line**.  
+The next line runs **only after** the previous line finishes.
+
+### **Example**
+```js
+console.log("A");
+console.log("B");
+console.log("C");
+```
+
+### **Output**
+```
+A
+B
+C
+```
+
+Everything runs in order.
+
+---
+
+##  Asynchronous JavaScript  
+Some tasks take time → JS offloads them to browser APIs  
+(e.g., **setTimeout, fetch, DOM events**).  
+These tasks **do not block** the main thread.
+
+### **Example**
+```js
+console.log("A");
+
+setTimeout(() => {
+  console.log("B");
+}, 2000);
+
+console.log("C");
+```
+
+### **Output order**
+```
+A
+C
+B   ← (printed after 2 seconds)
+```
+
+---
+
+##  Callbacks  
+A **callback** is a function passed as an argument to another function.
+
+### **Example**
+```js
+function greet(name, cb) {
+  console.log("Hello " + name);
+  cb();
+}
+
+greet("Anubhav", () => {
+  console.log("Welcome!");
+});
+```
+
+---
+
+##  Callback Hell  
+Callback hell happens when callbacks become **nested, messy, and unreadable**.
+
+###  Example: Callback Hell (Pyramid of Doom)
+```js
+getData(function(data1) {
+  getMoreData(data1, function(data2) {
+    getMoreMoreData(data2, function(data3) {
+      getFinalData(data3, function(result) {
+        console.log(result);
+      });
+    });
+  });
+});
+```
+
+Looks like a **pyramid of doom**  
+Too many nested levels → hard to read, debug, and maintain.
+
+Displaying Day 59 - async_js_notes.md.
+
+## Context API in React
+
+The **Context API** is a built-in React mechanism used to **share data globally** across components **without passing props manually at every level**.
+
+### Problem it solves: *Prop Drilling*
+
+Prop drilling happens when data is passed:
+
+```
+App → ComponentA → ComponentB → ComponentC
+
+```
+
+Even though only `ComponentC` needs the data.
+
+Context API allows:
+
+```
+App (Provider) → ComponentC (Consumer)
+
+```
+
+---
+
+## 2. When should you use Context API?
+
+Use Context API when:
+
+- Data is **global** in nature
+- Same data is needed in **many components**
+
+### Common use cases
+
+- User authentication (logged-in user)
+- Theme (dark / light)
+- Language (i18n)
+- Cart data (small apps)
+- App-level settings
+
+Avoid Context for **frequently changing data** (performance reasons).
+
+---
+
+## 3. Core Parts of Context API
+
+Context API has **3 main parts**:
+
+1. `createContext()`
+2. `Context.Provider`
+3. `useContext()`
+
+---
+
+## 4. Step-by-Step Implementation
+
+### Step 1: Create Context
+
+```jsx
+// UserContext.js
+import { createContext } from 'react';
+
+const UserContext = createContext();
+
+export default UserContext;
+```
+
+### Explanation
+
+- `createContext()` creates a **context object**
+- This context will hold shared/global data
+
+---
+
+### Step 2: Provide Context (Provider)
+
+```jsx
+// App.jsx
+import UserContext from './UserContext';
+import Dashboard from './Dashboard';
+
+function App() {
+  const user = 'Anubhav';
+
+  return (
+    <UserContext.Provider value={user}>
+      <Dashboard />
+    </UserContext.Provider>
+  );
+}
+
+export default App;
+```
+
+### Explanation
+
+- `Provider` makes the data available to **all child components**
+- `value` is the data you want to share
+- Any component inside `<Provider>` can access this value
+
+---
+
+### Step 3: Consume Context (useContext)
+
+```jsx
+// Dashboard.jsx
+import { useContext } from 'react';
+import UserContext from './UserContext';
+
+function Dashboard() {
+  const user = useContext(UserContext);
+
+  return <h1>Welcome, {user}</h1>;
+}
+
+export default Dashboard;
+```
+
+### Explanation
+
+- `useContext(UserContext)` reads the value from the nearest Provider
+- No props required
+- Cleaner and more readable than prop drilling
+
+---
+
+## 5. Context with Object Data
+
+### Provider
+
+```jsx
+<UserContext.Provider value={{ name: 'Anubhav', role: 'Admin' }}>
+  <Dashboard />
+</UserContext.Provider>
+```
+
+### Consumer
+
+```jsx
+const { name, role } = useContext(UserContext);
+
+console.log(name); // Anubhav
+console.log(role); // Admin
+```
+
+### Explanation
+
+- Context can store **objects, arrays, functions, states**
+- Destructuring is commonly used
+
+---
+
+## 6. Context with State (Dynamic Data)
+
+```jsx
+// App.jsx
+import { useState } from 'react';
+import UserContext from './UserContext';
+import Profile from './Profile';
+
+function App() {
+  const [user, setUser] = useState('Guest');
+
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      <Profile />
+    </UserContext.Provider>
+  );
+}
+```
+
+```jsx
+// Profile.jsx
+import { useContext } from 'react';
+import UserContext from './UserContext';
+
+function Profile() {
+  const { user, setUser } = useContext(UserContext);
+
+  return (
+    <>
+      <h2>{user}</h2>
+      <button onClick={() => setUser('Anubhav')}>
+        Login
+      </button>
+    </>
+  );
+}
+```
+
+### Explanation
+
+- Context can share **state + updater function**
+- Very common for authentication logic
+
+---
+
+## 7. Creating a Custom Context Provider (Best Practice)
+
+```jsx
+// UserContext.js
+import { createContext, useState } from 'react';
+
+export const UserContext = createContext();
+
+export function UserProvider({ children }) {
+  const [user, setUser] = useState('Guest');
+
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
+  );
+}
+```
+
+```jsx
+// App.jsx
+import { UserProvider } from './UserContext';
+import Profile from './Profile';
+
+function App() {
+  return (
+    <UserProvider>
+      <Profile />
+    </UserProvider>
+  );
+}
+```
+
+### Explanation
+
+- Keeps context logic **clean and reusable**
+- Industry-preferred structure
+
+---
+
+## 8. Multiple Contexts Example
+
+```jsx
+<ThemeContext.Provider value="dark">
+  <UserContext.Provider value="Anubhav">
+    <Dashboard />
+  </UserContext.Provider>
+</ThemeContext.Provider>
+```
+
+### Explanation
+
+- React allows **multiple contexts**
+- Each context manages its own concern
+
+---
+
+## 9. Context API vs Props
+
+| Props | Context |
+| --- | --- |
+| Passed manually | Passed globally |
+| Best for parent-child | Best for global data |
+| Simple | Powerful |
+| No performance issue | Overuse can cause re-renders |
+Displaying Day 81 Notes.md.

@@ -1,0 +1,122 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Body (Dark Theme) */
+body {
+  background: #121212;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 700px;
+}
+
+/* Form Card */
+form {
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Inputs */
+form input {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: #2c2c2c;
+  color: #fff;
+  transition: 0.3s;
+}
+
+form input:focus {
+  border: 1px solid #00adb5;
+}
+
+/* Add Button */
+button {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #00adb5;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #008c93;
+}
+
+/* Notes Grid */
+.notes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+/* Card Style */
+.note-card {
+  background: #1e1e1e;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.6);
+  transition: 0.3s;
+}
+
+.note-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Title */
+.note-card h2 {
+  color: #00adb5;
+  margin-bottom: 8px;
+}
+
+/* Description */
+.note-card p {
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+/* Buttons inside card */
+.note-card button {
+  margin-right: 8px;
+  margin-top: 5px;
+}
+
+/* Delete Button */
+.note-card button:first-of-type {
+  background: #ff4c4c;
+}
+
+.note-card button:first-of-type:hover {
+  background: #d93636;
+}
+
+/* Edit Input */
+.note-card input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  border-radius: 6px;
+  border: none;
+  background: #2c2c2c;
+  color: white;
+}
